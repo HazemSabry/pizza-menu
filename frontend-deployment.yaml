@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+  labels:
+    app: pizza-app-deployment
+    kind: frontend
+  namespace: pizza-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pizza-app-pod
+      kind: frontend
+  template:
+    metadata:
+      name: react-pod
+      labels:
+        app: pizza-app-pod
+      kind: frontend
+    spec:
+      containers:
+        - image: frontend
+          name: frontend
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
+            requests:
+              cpu: "250m"
+              memory: "64Mi"
+      restartPolicy: Always

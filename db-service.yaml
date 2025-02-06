@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizza-app-database-service
+  labels:
+    app: pizza-app-service
+    kind: database-service
+  namespace: pizza-app
+spec:
+  type: ClusterIP
+  ports:
+    - name: "27017"
+      port: 27017
+      targetPort: 27017
+      protocol: TCP
+  selector:
+    app: pizza-app-pod
+    kind: database
